@@ -9,49 +9,43 @@ from .models import CurrenciesData
 
 
 def home(request):
-    print(CurrenciesData.objects.values("ratio_of_dollar_on_euro", "last_modified"))
-    # ser_data = RatioSerializer(
-    #     CurrenciesData.objects.values("ratio_of_dollar_on_euro", "last_modified"),
-    #     many=True,
-    # )
-    # print(ser_data)
-    print(CurrenciesData.objects.get_daily_usd_amount())
-
-    return HttpResponse("jo")
+    print(CurrenciesData.objects.get_daily_amount("EURO"))
+    return HttpResponse("hi")
 
 
 @api_view()
 def current_usd(request):
-    current_usd_amount = CurrenciesData.objects.get_current_usd_amount()
+    current_usd_amount = CurrenciesData.objects.get_current_amount("USD")
     ser_data = CurrenciesDataSerializer(current_usd_amount)
     return Response(ser_data.data, status=status.HTTP_200_OK)
 
 
 @api_view()
 def current_euro(request):
-    current_euro_amount = CurrenciesData.objects.get_current_euro_amount()
+    current_euro_amount = CurrenciesData.objects.get_current_amount("EURO")
     ser_data = CurrenciesDataSerializer(current_euro_amount)
     return Response(ser_data.data, status=status.HTTP_200_OK)
 
 
 @api_view()
 def history_usd(request):
-    daily_usd_amount = CurrenciesData.objects.get_daily_usd_amount()
+    daily_usd_amount = CurrenciesData.objects.get_daily_amount("USD")
     ser_data = CurrenciesDataSerializer(daily_usd_amount, many=True)
     return Response(ser_data.data, status=status.HTTP_200_OK)
 
 
 @api_view()
 def history_euro(request):
-    daily_euro_amount = CurrenciesData.objects.get_daily_euro_amount()
+    daily_euro_amount = CurrenciesData.objects.get_daily_amount("EURO")
     ser_data = CurrenciesDataSerializer(daily_euro_amount, many=True)
     return Response(ser_data.data, status=status.HTTP_200_OK)
 
 
 @api_view()
-def history_ratio(request):
+def history_ratio():
     daily_ratio = CurrenciesData.objects.values(
         "ratio_of_dollar_on_euro", "last_modified"
     )
+
     ser_data = RatioSerializer(daily_ratio, many=True)
     return Response(ser_data.data, status=status.HTTP_200_OK)

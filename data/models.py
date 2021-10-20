@@ -3,17 +3,11 @@ import enum
 
 
 class CurrenciesDataManager(models.Manager):
-    def get_current_usd_amount(self):
-        return self.filter(currency="USD").last()
+    def get_current_amount(self, currency):
+        return self.filter(currency=currency).last()
 
-    def get_current_euro_amount(self):
-        return self.filter(currency="EURO").last()
-
-    def get_daily_usd_amount(self):
-        return self.filter(currency="USD")
-
-    def get_daily_euro_amount(self):
-        return self.filter(currency="EURO")
+    def get_daily_amount(self, currency):
+        return self.filter(currency=currency)
 
 
 class CurrenciesData(models.Model):

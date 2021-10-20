@@ -18,9 +18,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "data.apps.DataConfig",
     "django_celery_beat",
-    "graphene_django",
     "rest_framework",
     "rest_framework.authtoken",
+    "graphene_django",
 ]
 
 MIDDLEWARE = [
@@ -109,9 +109,16 @@ REST_FRAMEWORK = {
 }
 
 
+AUTHENTICATION_BACKENDS = [
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
 GRAPHENE = {
     "SCHEMA": "tgju.schema.schema",
-    "MIDDLEWARE": ["graphene_jwt.middleware.JSONWebTokenMiddleware"],
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ],
 }
 
 CELERY_BROKER_URL = "amqp://guest:guest@localhost"
