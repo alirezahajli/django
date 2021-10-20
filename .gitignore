@@ -1,4 +1,6 @@
-### Django ###
+
+.myenv
+.env
 *.log
 *.pot
 *.pyc
@@ -81,3 +83,6 @@ dmypy.json
 /venv/*
 
 .myvenv
+db.sqlite3
+db.sqlite-journal
+.cache
