@@ -3,10 +3,13 @@ from .models import CurrenciesData
 
 
 class CurrenciesDataSerializer(serializers.Serializer):
-    class Meta:
-        model = CurrenciesData
-        fields = ("currency", "amount", "ratio_of_dollar_on_euro", "last_modified")
+
+    ratio_of_dollar_on_euro = serializers.FloatField()
+    last_modified = serializers.DateTimeField()
+    currency = serializers.CharField()
+    amount = serializers.IntegerField()
 
 
 class RatioSerializer(serializers.Serializer):
-    dictionary = serializers.DictField(child=serializers.CharField())
+    ratio_of_dollar_on_euro = serializers.FloatField()
+    last_modified = serializers.DateTimeField()

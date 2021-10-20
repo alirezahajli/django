@@ -22,9 +22,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "data.apps.DataConfig",
     "django_celery_beat",
-    "graphene_django",
     "rest_framework",
     "rest_framework.authtoken",
+    "graphene_django",
 ]
 
 MIDDLEWARE = [
@@ -91,13 +91,13 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
+# TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
-
 
 STATIC_URL = '/static/'
 
@@ -120,8 +120,15 @@ REST_FRAMEWORK = {
 }
 
 
+AUTHENTICATION_BACKENDS = [
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
 GRAPHENE = {
     "SCHEMA": "tgju.schema.schema",
-    "MIDDLEWARE": ["graphene_jwt.middleware.JSONWebTokenMiddleware"],
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ],
 }
 

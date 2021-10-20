@@ -5,7 +5,7 @@ class GetData:
     def __init__(self) -> None:
         pass
 
-    def __get_request_content(self, currency):
+    def __get_request_content(self, currency) -> list:
         urls = {
             "usd": "https://www.tgju.org/profile/price_dollar_rl",
             "euro": "https://www.tgju.org/profile/price_eur",
@@ -15,7 +15,7 @@ class GetData:
 
         return get_amount_from_content
 
-    def get_last_amount(self, currency):
+    def get_last_amount(self, currency) -> int:
         spilited_contenet = self.__get_request_content(currency)
         _index = None
         for indx, spilit in enumerate(spilited_contenet, start=0):
@@ -23,5 +23,5 @@ class GetData:
                 _index = indx
                 break
         last_currency_amount = spilited_contenet[_index].split("<")
-
-        return last_currency_amount[0].split(">")
+        amount = int(last_currency_amount[0].split(">")[1].replace(',', ''))
+        return amount
