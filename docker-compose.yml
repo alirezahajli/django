@@ -16,7 +16,6 @@ services:
       - postgres_DB=my_db
       - postgres_USER=my_db
       - postgres_PASSWORD=my@db_1234
-      - POSTGRES_HOST_AUTH_METHOD=trust
     networks:
       - main
 
@@ -42,16 +41,16 @@ services:
       - main
 
   celery-beat:
+    container_name: celery_beat
+    command: "celery -A tgju beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+
     depends_on:
       - app
       - rabbitmq
       - postgres
-    build:
-      context: .
+    build: .
     environment:
       CELERY_BROKER_URL: 'amqp://guest:guest@rabbitmq:5672'
-    command: ["celery", "-A", "tgju", "beat", "-l", "info", "--scheduler", "django_celery_beat.schedulers:DatabaseScheduler"]
-
     restart: on-failure
     networks:
       - main

@@ -82,11 +82,10 @@ dmypy.json
 .env
 /venv/*
 
-.myvenv
+/myvenv
 db.sqlite3
 db.sqlite-journal
 .cache
-<<<<<<< HEAD
-=======
-.idea
->>>>>>> bbab3fa2d6dce00c4c70ca87935710faed0cd08f
+/pg 
+/postgres
+/.Dockerignore
