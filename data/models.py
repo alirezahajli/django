@@ -24,10 +24,9 @@ class CurrenciesData(models.Model):
             return cls(value).name
 
     currency = models.CharField(
-        max_length=100,
-        choices=CurrencyType.choices(),
-        default=CurrencyType.USD.value)
-    amount = models.IntegerField(max_length=50)
+        max_length=40, choices=CurrencyType.choices(), default=CurrencyType.USD.value
+    )
+    amount = models.IntegerField()
     last_modified = models.DateTimeField(auto_now=True)
     ratio_of_dollar_on_euro = models.FloatField(max_length=100, default=0.0)
 

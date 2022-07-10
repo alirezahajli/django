@@ -72,6 +72,7 @@ services:
 
   web:
     build: .
+    user: root
     container_name: web
     command: >
       sh -c "python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
