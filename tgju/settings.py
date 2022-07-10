@@ -1,16 +1,15 @@
 from pathlib import Path
 
+from decouple import config
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-mz+hif^$!uaijg9_b2etulda*x1o5p+@l-)0diz@ik3f^kmf2k'
-
-DEBUG = True
-
-ALLOWED_HOSTS = []
+SECRET_KEY = config("SECRET_KEY")
+DEBUG = config("DEBUG")
+ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(" ")
 
 
-ROOT_URLCONF = 'tgju.urls'
-
+ROOT_URLCONF = "tgju.urls"
 
 
 INSTALLED_APPS = [
@@ -54,21 +53,26 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'tgju.wsgi.application'
+WSGI_APPLICATION = "tgju.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'my_db',
-        'USER': 'my_db',
-        'PASSWORD': 'my@db_1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    "default": {
+        "ENGINE": config("DB_ENGINE"),
+        "NAME": config("DB_NAME"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": config("DB_HOST"),
+        "PORT": config("DB_PORT"),
+    },
+    "test": {
+        "ENGINE": config("TEST_ENGINE"),
+        "NAME": BASE_DIR / config("TEST_NAME"),
+        "USER": config("TEST_USER"),
+        "PASSWORD": config("TEST_PASSWORD"),
+        "HOST": config("TEST_HOST"),
+        "PORT": config("TEST_PORT"),
+    },
 }
 
 
@@ -88,9 +92,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 # TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
@@ -99,15 +103,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost'
-CELERY_RESULT_BACKEND = 'rpc://'
-
-
+CELERY_BROKER_URL = "amqp://guest:guest@localhost"
+CELERY_RESULT_BACKEND = "rpc://"
 
 
 REST_FRAMEWORK = {
@@ -131,4 +133,3 @@ GRAPHENE = {
         "graphql_jwt.middleware.JSONWebTokenMiddleware",
     ],
 }
-
