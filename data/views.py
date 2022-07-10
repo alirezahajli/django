@@ -1,11 +1,9 @@
-from datetime import timedelta
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 
 from data.serializers import CurrenciesDataSerializer, RatioSerializer
 from django.http import HttpResponse
-from django.utils import timezone
 
 from .models import CurrenciesData
 
