@@ -1,15 +1,19 @@
-FROM python:3
+FROM python:3.8-slim-buster
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+RUN mkdir -p /home/app
 
-WORKDIR /src
+RUN groupadd app && useradd app -g app
 
-COPY requirements.txt /src/
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
 
-RUN pip install -U pip
+COPY . $APP_HOME
 
+RUN python3 -m pip install --upgrade pip
 RUN pip install -r requirements.txt
+RUN chown -R app:app $APP_HOME
 
-COPY . /src
-
-EXPOSE 8000
-
-CMD ["python3","manage.py","runserver"]
+USER app
