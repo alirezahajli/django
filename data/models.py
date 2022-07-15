@@ -9,6 +9,11 @@ class CurrenciesDataManager(models.Manager):
     def get_daily_amount(self, currency):
         return self.filter(currency=currency)
 
+    def get_random_data(self, number):
+        return self.raw(
+            f"SELECT * FROM data_currenciesdata WHERE id IN (SELECT id FROM data_currenciesdata TABLESAMPLE system_rows({number}));"
+        )
+
 
 class CurrenciesData(models.Model):
     class CurrencyType(enum.IntEnum):
