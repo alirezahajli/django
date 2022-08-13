@@ -145,3 +145,21 @@ SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = "none"
 LOGIN_REDIRECT_URL = "home"
 ACCOUNT_LOGOUT_ON_GET = True
+
+
+
+
+
+
+
+#######################
+#STATIC_URL = f"{settings.api_root_path}/static/" if settings.api_root_path else "/static/"
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+# from pydantic import BaseSettings
+# from typing import List, Optional
+
+
+# class Settings(BaseSettings):
+#     ...
