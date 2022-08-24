@@ -1,13 +1,14 @@
 from django.urls import path
+from rest_framework import routers
 from . import views
+
+router = routers.DefaultRouter()
+router.register('', views.current)
+router.register('history', views.history_usd)
+router.register('history-ratio', views.history_ratio)
 
 
 app_name = "data"
 urlpatterns = [
-    path("", views.home, name="data"),
-    path("current/usd", views.current_usd),
-    path("current/euro", views.current_euro),
-    path("history/usd", views.history_usd),
-    path("history/euro", views.history_euro),
-    path("history/ratio", views.history_ratio),
+    path('v1/', include(router.urls)),
 ]
